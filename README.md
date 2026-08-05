@@ -25,6 +25,41 @@ lead-distribution-platform/   this repo — spec and deployment docs
 
 `web/` and `api/` are independent git repositories checked out inside this folder for convenience. Each has its own remote, commit history, README, and `.env.example`; this repo ignores both directories. Commit and push from inside whichever one you are working in.
 
+## Local development
+
+Requires Docker and Node 20+.
+
+```bash
+cp .env.example .env      # local-only database values
+npm run install:all       # deps for this repo, api/, and web/
+npm run dev               # database + api + web
+npm run dev:stop          # stop everything
+```
+
+`npm run dev` starts the MySQL container, waits until it answers real
+queries, then runs both dev servers under `concurrently`. Web comes up on
+`8192` and the API on `8193`, mirroring production. `Ctrl-C` stops both
+servers but leaves the database running; `npm run dev:stop` stops the
+servers and the container, and works from a second terminal.
+
+| Script | Effect |
+|---|---|
+| `npm run dev` | Database, then api and web together |
+| `npm run dev:stop` | Stop dev servers and the database container |
+| `npm run dev:api` / `dev:web` | One service on its own |
+| `npm run db:up` / `db:stop` | Database only |
+| `npm run db:reset` | Destroy the volume and start clean |
+| `npm run db:shell` | MySQL prompt inside the container |
+| `npm run db:logs` | Follow database logs |
+
+Database data lives in the named volume `lead-distribution-mysql-data` and
+survives `dev:stop`. Only `db:reset` discards it.
+
+The container stores timestamps in UTC. Broker opening hours and daily caps
+are computed from each broker's own timezone in application code, never from
+the server clock — so a machine in a different timezone produces identical
+assignment results.
+
 ## Assignment algorithm
 
 For each broker that is active, in the distribution, under its daily cap, and currently open in its own timezone on a working day:

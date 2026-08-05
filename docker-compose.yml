@@ -1,0 +1,45 @@
+name: lead-distribution
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: lead-distribution-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-root}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-lead_distribution}
+      MYSQL_USER: ${MYSQL_USER:-lead_user}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-lead_password}
+    ports:
+      - "${MYSQL_PORT:-3306}:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+      # Store timestamps in UTC. Broker-local times are derived in the app
+      # from each broker's timezone, never from the server clock.
+      - --default-time-zone=+00:00
+    healthcheck:
+      # Authenticated ping — mysqladmin answers before the server is ready
+      # for connections, so a bare ping would let `--wait` return too early.
+      test:
+        [
+          "CMD",
+          "mysql",
+          "-h",
+          "127.0.0.1",
+          "-u",
+          "${MYSQL_USER:-lead_user}",
+          "-p${MYSQL_PASSWORD:-lead_password}",
+          "-e",
+          "SELECT 1",
+        ]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+      start_period: 30s
+
+volumes:
+  mysql_data:
+    name: lead-distribution-mysql-data
