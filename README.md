@@ -13,7 +13,17 @@ Full-stack exam project: one public lead form, one distribution, many brokers. L
 
 Next.js (TypeScript) frontend · Express (TypeScript) backend · MySQL via ORM · PM2 on the VPS.
 
-The two apps ship as **separate public repositories**, per the exam requirements. This directory holds the shared planning docs.
+The two apps ship as **separate public repositories**, per the exam requirements. This repository holds the shared planning docs.
+
+## Layout
+
+```
+lead-distribution-platform/   this repo — spec and deployment docs
+├── web/                      frontend repo, cloned in place (not tracked here)
+└── api/                      backend repo, cloned in place (not tracked here)
+```
+
+`web/` and `api/` are independent git repositories checked out inside this folder for convenience. Each has its own remote, commit history, README, and `.env.example`; this repo ignores both directories. Commit and push from inside whichever one you are working in.
 
 ## Assignment algorithm
 

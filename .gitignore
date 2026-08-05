@@ -4,6 +4,10 @@ build/
 .next/
 coverage/
 
+# Deliverable apps — each is its own repository, tracked separately
+/web/
+/api/
+
 # Local tooling — not part of the deliverable
 .claude/
 
