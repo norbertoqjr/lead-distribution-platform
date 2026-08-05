@@ -12,7 +12,7 @@ A simple lead distribution platform with **one** public lead form, **one** distr
 | Layer | Requirement |
 |---|---|
 | Frontend | Next.js application |
-| Backend | Node.js (Express recommended) |
+| Backend | Node.js (Express recommended) — using NestJS, which runs on the Express platform |
 | Database | MySQL (already installed on the VPS) |
 | DB access | Any ORM (no raw SQL sprawl) |
 | Language | TypeScript, frontend and backend |

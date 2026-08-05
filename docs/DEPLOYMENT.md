@@ -56,7 +56,7 @@ cp .env.example .env && $EDITOR .env      # fill in real values
 npm run build
 npm run db:migrate                        # create tables
 npm run db:seed                           # create the admin user
-pm2 start dist/server.js --name lds-api
+pm2 start dist/main.js --name lds-api
 
 # frontend
 git clone <frontend repo> ~/apps/lds-web && cd ~/apps/lds-web
