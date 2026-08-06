@@ -7,6 +7,7 @@ Full-stack exam project: one public lead form, one distribution, many brokers. L
 | Doc | What's in it |
 |---|---|
 | [docs/SPEC.md](docs/SPEC.md) | Full requirements, distribution algorithm, validation rules, fail conditions, test cases |
+| [docs/FLOWS.md](docs/FLOWS.md) | Mermaid diagrams: topology, submission flow, eligibility, deficit selection, status transitions, data model |
 | [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md) | VPS layout, env vars, PM2 commands, deployment checklist |
 
 ## Stack

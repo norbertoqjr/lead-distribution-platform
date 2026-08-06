@@ -21,9 +21,15 @@
     "lint": "concurrently -n api,web -c cyan,magenta --group \"npm run lint:api\" \"npm run lint:web\"",
     "lint:api": "npm --prefix api run lint",
     "lint:web": "npm --prefix web run lint",
-    "lint:fix": "concurrently -n api,web -c cyan,magenta --group \"npm --prefix api run lint:fix\" \"npm --prefix web run lint:fix\""
+    "lint:fix": "concurrently -n api,web -c cyan,magenta --group \"npm --prefix api run lint:fix\" \"npm --prefix web run lint:fix\"",
+    "docs:diagrams": "mmdc -i docs/FLOWS.md -o docs/diagrams/FLOWS.md --outputFormat svg",
+    "build": "concurrently -n api,web -c cyan,magenta --group \"npm run build:api\" \"npm run build:web\"",
+    "build:api": "npm --prefix api run build",
+    "build:web": "npm --prefix web run build"
   },
   "devDependencies": {
-    "concurrently": "^9.1.2"
+    "@mermaid-js/mermaid-cli": "^11.16.0",
+    "concurrently": "^9.1.2",
+    "puppeteer": "^24.43.1"
   }
 }

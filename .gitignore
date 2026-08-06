@@ -20,3 +20,4 @@ credentials.local*
 
 .DS_Store
 *.log
+docs/diagrams/
