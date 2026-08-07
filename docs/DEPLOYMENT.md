@@ -163,8 +163,10 @@ runs, so a red build never reaches the VPS.
    API otherwise dies on config validation at boot and PM2 restart-loops, which
    reads as a mysterious outage rather than a missing file
 5. Source `.env`, so the health probe uses the server's own port
-6. `npm ci` — **not** `--omit=dev`; `db:migrate` and `db:seed` run through
-   `ts-node` and the TypeORM CLI, which are devDependencies
+6. `npm ci --include=dev` — the build and migrations run through the Nest CLI,
+   `ts-node` and the TypeORM CLI, all devDependencies. `--include=dev` is not
+   redundant: step 5 exported `NODE_ENV=production`, and npm omits
+   devDependencies on its own when it sees that
 7. `npm run build`
 8. API only: `npm run db:migrate` then `npm run db:seed`. The seed upserts the
    admin, so it is idempotent and doubles as a password reset
